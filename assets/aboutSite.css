@@ -1,0 +1,121 @@
+.SiteHeaderAbout {
+    position: relative;
+    z-index: 10;        
+    background-color: var(--color-text); 
+    padding: 3rem;
+    width: var(--width-12col);
+    height: 710px;
+    align-items: center;
+    margin: auto;
+    top: -100px;
+  }
+
+  .SiteHeaderAboutBox{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+  }
+
+  .SiteHeaderAboutBox img{
+    position: relative;
+    top: -55px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    justify-content: center;
+    object-fit: cover;
+  }
+
+  .SiteHeaderAboutBoxText {
+    width: 48%;
+  }
+
+  .SiteHeaderAboutBoxImage {
+    width: 48%;
+    height: auto;
+  }
+
+.ImgInfoBoxs {
+  display: grid;
+  position: relative;
+  top: -50px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: auto;
+  padding: 1rem 0 1rem 0; 
+}
+
+.InfoBox {
+  background-color: #d3a7e3;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem;
+  border-radius: 8px;
+  width: 100%;
+  min-width: 100px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.InfoBox span {
+  display: block;
+  font-weight: normal;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  color: #f3f3f3;
+}
+
+.SiteBodyTwoBoxs{
+    margin: 600px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: var(--width-12col);
+    min-height: 400px;
+}
+
+.SiteBodyTwoLeft {
+    width: 48%;
+    min-height: 100%;
+    padding: 3rem;
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+}
+
+.SiteBodyTwoRight {
+    width: 48%;
+    min-height: 100%;
+    padding: 3rem;
+    display: flex;
+    background-color:var(--color-text);
+    border-radius: 20px;
+}
+ 
+.SiteBodyMiddleBox{
+    width: var(--width-12col);
+    height: 400px;
+    background-color: var(--color-text);
+    margin: 100px auto 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.SiteBodyMiddleBox{
+    padding: 3rem;
+}
+
+.SiteBodyMiddleBoxImg{
+    height: 100%;
+    min-width: 400px;
+}
+
+.SiteBodyMiddleBoxImg img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.SiteBodyMiddleBoxText{
+    padding-left: 3rem;
+}
