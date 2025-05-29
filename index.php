@@ -2,66 +2,77 @@
     <?php if(have_posts()): ?>
         <?php while(have_posts()): the_post(); ?>
 
+         <?php
+                $homeAboutText = get_field("home_about_text");
+                $homeAboutImage = get_field("home_about_image");
+            ?>
+
+
         <div class="carousel">
-  <button class="carousel-btn left" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-  <div class="carousel-slides">
-    <div class="heroContainer carousel-slide active" style="background-image: url('https://picsum.photos/1200/600?1');">
-      <div class="heroContainerText">
+          <button class="carousel-btn left" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="carousel-slides">
 
-        <div class="heroContainerTextText">
-              <div class="heroContainerTextTextText">
-                <p class="text-xl">Tidslerne 1</p>
-                <p class="text-4xl">Kræft n shit</p>
-                <p>luckily theres a family guy luckily there a man whopositively can do everything that makes us cry and cum hes a family guy</p>
-              </div>   
-         </div>
+              <?php
+                $args = array(
+                  'post_type' => 'artikel',
+                  'posts_per_page' => 3,
+                );
 
-      </div>
-    </div>
-    <div class="heroContainer carousel-slide" style="background-image: url('https://picsum.photos/1200/600?2');">
-      <div class="heroContainerText">
-        <div class="heroContainerTextText">
-              <div class="heroContainerTextTextText">
-                <p class="text-xl">Tidslerne 2</p>
-                <p class="text-4xl">Kræft n shit</p>
-                <p>luckily theres a family guy luckily there a man whopositively can do everything that makes us cry and cum hes a family guy</p>
-              </div>   
-         </div>
+                $loop = new WP_Query($args);
 
-      </div>
-    </div>
-    <div class="heroContainer carousel-slide" style="background-image: url('https://picsum.photos/1200/600?3');">
-      <div class="heroContainerText">
-        <div class="heroContainerTextText">
-              <div class="heroContainerTextTextText">
-                <p class="text-xl">Tidslerne 3</p>
-                <p class="text-4xl">Kræft n shit</p>
-                <p>luckily theres a family guy luckily there a man whopositively can do everything that makes us cry and cum hes a family guy</p>
-              </div>   
-         </div>
+                if ($loop->have_posts()) :
+                  while ($loop->have_posts()) : $loop->the_post();
+                    $articleImage = get_field("artikel_billede");
+                    $articleTitle = get_field('artikel_titel');
+                    $articleDescription = get_field('artikel_kort_beskrivelse');
+                    $articleCategory = get_field('artikel_type');
+
+                        if ($articleCategory) {
+                            if (is_object($articleCategory)) {
+                            $categoryLabel = $articleCategory->name;
+                            $categoryLink = get_term_link($articleCategory);
+                        }
+                        }
+                    ?>
+              
+              <div class="heroContainer carousel-slide active" style="background-image: url('<?php echo ($articleImage)["url"]; ?>" alt="<?php echo ($articleImage)["alt"]; ?>');">
+                <div class="heroContainerOverlay">
+                  <div class="heroContainerTextArea">
+                    <div class="heroContainerTextAreaContent">
+                      <h3>    <a href="<?php echo esc_url($categoryLink); ?>">
+                          <?php echo esc_html($categoryLabel); ?>
+                      </a></h3>
+            <h2 class="text-4xl"><?php echo $articleTitle; ?></h2>
+            <p><?php echo $articleDescription; ?></p>
+            <a href="<?php the_permalink(); ?>" class="hero-button">Læs artiklen →</a>
+        </div>
       </div>
     </div>
   </div>
-  <button class="carousel-btn right" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
-  <div class="carousel-indicators">
-    <span class="indicator active" onclick="goToSlide(0)"></span>
-    <span class="indicator" onclick="goToSlide(1)"></span>
-    <span class="indicator" onclick="goToSlide(2)"></span>
+              <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+              ?>
+
+    </div>
+    <button class="carousel-btn right" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="carousel-indicators">
+      <span class="indicator active" onclick="goToSlide(0)"></span>
+      <span class="indicator" onclick="goToSlide(1)"></span>
+      <span class="indicator" onclick="goToSlide(2)"></span>
+    </div>
   </div>
 </div>
 
 <div class="aboutContainer">
   <div class="aboutImage">
-    <img src="https://picsum.photos/400/300" alt="Tidslerne arrangement">
+    <img src="<?php echo ($homeAboutImage)["url"]; ?>" alt="<?php echo ($homeAboutImage)["alt"]; ?>">
   </div>
   <div class="aboutContent">
-    <h2 class="!text-3xl !text-[#404040]">Hvem er Tidslerne</h2>
-    <p>Tidslerne er en frivillig kræftforening, der støtter mennesker, 
-      som lever med senfølger efter kræft og kræftbehandling. Vi skaber
-      fællesskab, forståelse og et trygt rum, hvor du ikke behøver forklare alt –
-      her møder du andre, der ved, hvordan det føles. Gennem aktiviteter, samtale og
-      videndeling arbejder vi for at bryde tabuer og give plads til livet efter kræft.</p>
-    <a href="#" class="about-button">Læs mere →</a>
+    <h3>Hvem er Tidslerne</h3>
+    <p><?php echo $homeAboutText; ?></p>
+    <a href="<?php echo site_url('/aboutpage/'); ?>" class="about-button">Læs mere →</a>
   </div>
 </div>
 
@@ -69,18 +80,18 @@
   <div class="stats-container">
     <div class="stat">
 <i class="fa-regular fa-calendar"></i>
-      <h3>30+</h3>
-      <p>År med støtte til kræftramte</p>
+      <p>30+</p>
+      <h5>År med støtte til kræftramte</h5>
     </div>
     <div class="stat">
       <i class="fa-solid fa-people-group"></i>
-      <h3>5600+</h3>
-      <p>Døde af cancer</p>
+      <p>5600+</p>
+      <h5>Medlemmer i fællesskabet</h5>
     </div>
     <div class="stat">
       <i class="fa-regular fa-handshake"></i>
-      <h3>100+</h3>
-      <p>Arrangementer afholdt</p>
+      <p>100+</p>
+      <h5>Arrangementer afholdt</h5>
     </div>
   </div>
 </section>
@@ -90,47 +101,52 @@
 <section class="stories-section">
   <div class="section-breaker">
   <hr class="line">
-  <h2 class="!text-4xl">Seneste patientshistorier</h2>
+  <h3>Seneste patientshistorier</h3>
   <hr class="line">
 </div>
   <div class="stories-grid">
 
-    <a href="#">
+      <?php
+$args = array(
+  'post_type' => 'artikel',
+  'posts_per_page' => 3,
+  'tax_query' => array(
+    array(
+      'taxonomy' => 'artikel-type',
+      'field'    => 'slug',
+      'terms'    => 'patienthistorie',
+    ),
+  ),
+);
+
+      $loop = new WP_Query($args);
+
+                if ($loop->have_posts()) :
+                  while ($loop->have_posts()) : $loop->the_post();
+                    $articleImage = get_field("artikel_billede");
+                    $articleTitle = get_field('artikel_titel');
+                    $articleDescription = get_field('artikel_kort_beskrivelse');
+                    $articleAuthor = get_field('artikel_forfatter');
+                    $articleDate = get_field('artikel_dato');
+              ?>
+    <a href="<?php the_permalink(); ?>">
       <div class="story-card">
-        <img src="/img/sagi.jpg" alt="">
+        <img src="<?php echo ($articleImage)["url"]; ?>" alt="<?php echo ($articleImage)["alt"]; ?>">
         <div class="story-content">
-          <h3>Et Liv Forandret</h3>
-          <p>En personlig fortælling om, hvordan en kræftdiagnose ændrede hverdagen og satte livet i perspektiv – fra chok til accept og håb.</p>
-          <small>Skrevet af Dorthe Iversen | 17 Apr, 2026</small>
+          <h4><?php echo $articleTitle; ?></h4>
+          <p><?php echo $articleDescription; ?></p>
+          <small>Skrevet af <?php echo $articleAuthor; ?> | <?php echo $articleDate; ?></small>
       </div>
     </div>
     </a>
 
-    <a href="#">
-      <div class="story-card">
-        <img src="/img/sagi.jpg" alt="">
-        <div class="story-content">
-          <h3>Et Liv Forandret</h3>
-          <p>En personlig fortælling om, hvordan en kræftdiagnose ændrede hverdagen og satte livet i perspektiv – fra chok til accept og håb.</p>
-          <small>Skrevet af Dorthe Iversen | 17 Apr, 2026</small>
-      </div>
-    </div>
-    </a>  
-    
-    
-    <a href="#">
-      <div class="story-card">
-        <img src="/img/sagi.jpg" alt="">
-        <div class="story-content">
-          <h3>Et Liv Forandret</h3>
-          <p>En personlig fortælling om, hvordan en kræftdiagnose ændrede hverdagen og satte livet i perspektiv – fra chok til accept og håb.</p>
-          <small>Skrevet af Dorthe Iversen | 17 Apr, 2026</small>
-      </div>
-    </div>
-    </a>
-
-  </div>
-    <a href="#" class="custom-button">Se mere</a>
+              <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+              ?>
+              </div>
+              <a href="/artikel-type/patienthistorie" class="section-button">Se mere →</a>
 </section>
 
   
@@ -138,42 +154,70 @@
 
 
 
-  <section class="eventSiteAssNigger">
+  <section class="eventsHome">
     <div class="section-breaker">
   <hr class="line">
-  <h2 class="!text-4xl">Kommende arrangementer</h2>
+  <h3>Kommende arrangementer</h3>
   <hr class="line">
 </div>
     <div class="eventSiteCardsSection">
+
+
+              <?php
+                $args = array(
+                  'post_type' => 'event',
+                  'posts_per_page' => 3,
+                );
+
+                $loop = new WP_Query($args);
+
+                if ($loop->have_posts()) :
+                  while ($loop->have_posts()) : $loop->the_post();
+                    $eventImage = get_field("event_image");
+                    $eventTitle = get_field("event_title");
+                    $eventDescription = get_field('event_description');
+                    $eventTime = get_field('event_time');
+                    $eventLocation = get_field("event_location");
+                    $eventStatus = get_field('event_status');
+                    $eventConditions = get_field('event_conditions');
+                    $eventPrice = get_field('event_price');
+                    $eventLink = get_field('event_link');
+              ?>
+
  <div class="eventSiteCard cursor-pointer">
-            <a href="https://tidslerne.nemtilmeld.dk/461/">
+              <a href="<?php echo esc_url($eventLink['url']); ?>">
                 <div class="eventSiteCardWhole roundBar">
                     <div class="eventSiteCardImage">
-                        <img src="../img/sagi.jpg" alt="" class="rounded-tl-[10px] rounded-tr-[10px]">
+                        <img src="<?php echo ($eventImage)["url"]; ?>" alt="<?php echo ($eventImage)["alt"]; ?>" class="rounded-tl-[10px] rounded-tr-[10px]">
     
-                        <div class="eventSiteCardPT !hidden">
-                            <p>Gratis</p>
-                        </div>
-                        <div class="eventSiteCardPToff">
-                            <p>50,-</p>
-                        </div>
-                        
-                        <div class="eventSiteCardBadge">
-                            <p>Aflyst</p>
-                        </div>
+                          <?php if ($eventPrice < 1) : ?>
+                            <div class="eventSiteCardPT">
+                              <h5><?php echo $eventPrice; ?>Gratis</h5>
+                            </div>
+                          <?php else : ?>
+                            <div class="eventSiteCardPToff">
+                              <h5><?php echo $eventPrice; ?>.-</h5>
+                            </div>
+                          <?php endif; ?>
+                          
+                          <?php if ($eventStatus) : ?>
+                              <div class="eventSiteCardBadge">
+                                  <h5>Aflyst</h5>
+                              </div>
+                          <?php endif; ?>
                     </div>
                     <div class="eventSiteCardHeader rounded-bl-[10px] rounded-br-[10px]">
-                        <h6>Udendørs</h6>
-                        <h5 class="!pt-3">Kaffemik hos Rikke Rix</h5>
-                        <p>Tag med ud at drikke kaffe med Rikke blah blah blah...</p>
-                        <div class="grid !pt-[10px]">
+                        <h6><?php echo $eventConditions; ?></h6>
+                        <h4 class="!pt-3"><?php echo $eventTitle; ?></h4>
+                        <p><?php echo $eventDescription; ?></p>
+                        <div class="grid !mt-[auto] !pt-[10px]">
                             <div class="flex">
-                                <i class="fa-regular fa-calendar !pb-4 !pr-5"></i>
-                                <p>Torsdag d. 15. maj 2025 kl. 14:00 til 16:00</p>
+                                <i class="fa-regular fa-calendar !pb-5 !pr-5"></i>
+                                <small><?php echo $eventTime; ?></small>
                             </div>
                             <div class="flex">
                                 <i class="fa-solid fa-location-dot !pr-5"></i>
-                                <p>Mozartsvej 13 2450 København SV</p>
+                                <small><?php echo $eventLocation; ?></small>
                             </div>
                         </div>
                     </div>
@@ -181,140 +225,117 @@
             </a>
         </div> 
  
-            <div class="eventSiteCard cursor-pointer">
-                <a href="https://tidslerne.nemtilmeld.dk/461/">
-                    <div class="eventSiteCardWhole roundBar">
-                        <div class="eventSiteCardImage">
-                            <img src="../img/sagi.jpg" alt="" class="rounded-tl-[10px] rounded-tr-[10px]">
-        
-                            <div class="eventSiteCardPT !hidden">
-                                <p>Gratis</p>
-                            </div>
-                            <div class="eventSiteCardPToff">
-                                <p>50,-</p>
-                            </div>
-                            
-                            <div class="eventSiteCardBadge">
-                                <p>Aflyst</p>
-                            </div>
-                        </div>
-                        <div class="eventSiteCardHeader rounded-bl-[10px] rounded-br-[10px]">
-                            <h6>Udendørs</h6>
-                            <h5 class="!pt-3">Kaffemik hos Rikke Rix</h5>
-                            <p>Tag med ud at drikke kaffe med Rikke blah blah blah...</p>
-                            <div class="grid !pt-[10px]">
-                                <div class="flex">
-                                    <i class="fa-regular fa-calendar !pb-4 !pr-5"></i>
-                                    <p>Torsdag d. 15. maj 2025 kl. 14:00 til 16:00</p>
-                                </div>
-                                <div class="flex">
-                                    <i class="fa-solid fa-location-dot !pr-5"></i>
-                                    <p>Mozartsvej 13 2450 København SV</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-                </a>
-            </div> 
-                
-        
-        <div class="eventSiteCard cursor-pointer">
-            <a  href="https://tidslerne.nemtilmeld.dk/461/">
-               <div class="eventSiteCardWhole roundBar">
-                    <div class="eventSiteCardImage">
-                        <img src="../img/sagi.jpg" alt=""  class="rounded-tl-[10px] rounded-tr-[10px]">
-                        <div class="eventSiteCardPT">
-                            <p>Gratis</p>
-                        </div>
-                        <div class="eventSiteCardPToff !hidden">
-                            <p>50,-</p>
-                        </div> 
-                        
-                        <div class="eventSiteCardBadge !hidden">
-                            <p>Aflyst</p>
-                        </div>
-                    </div>
-                    <div class="eventSiteCardHeader rounded-bl-[10px] rounded-br-[10px]">
-                        <h6>Udendørs</h6>
-                        <h5 class="!pt-3">Kaffemik hos Rikke Rix</h5>
-                        <p>Tag med ud at drikke kaffe med Rikke blah blah blah...</p>
-                        <div class="grid !pt-[10px]">
-                            <div class="flex">
-                                <i class="fa-regular fa-calendar !pb-4 !pr-5"></i>
-                                <p>Torsdag d. 15. maj 2025 kl. 14:00 til 16:00</p>
-                            </div>
-                            <div class="flex">
-                                <i class="fa-solid fa-location-dot !pr-5"></i>
-                                <p>Mozartsvej 13 2450 København SV</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </a>
-        </div>
+              <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+              ?>
     </div>
-       
-            <a href="#" class="custom-button">Se mere</a>
+            <a href="https://tidslerne.nemtilmeld.dk" class="section-button">Se mere →</a>
  </section>
 
 
 <section class="LatestArticles">  
    <div class="section-breaker">
   <hr class="line">
-  <h2 class="!text-4xl">Seneste artikler</h2>
+  <h3>Seneste artikler</h3>
   <hr class="line">
 </div>
   <div class="card-container"> 
 
-    <a href="#">
+<?php
+$args = array(
+  'post_type' => 'artikel',
+  'posts_per_page' => 4,
+  'tax_query' => array( 
+    array(
+      'taxonomy' => 'artikel-type',
+      'field'    => 'slug',
+      'terms'    => array('patienthistorie', 'information'),
+      'operator' => 'NOT IN',
+    ),
+  ),
+);
+
+$loop = new WP_Query($args);
+
+if ($loop->have_posts()) :
+  while ($loop->have_posts()) : $loop->the_post();
+    $articleImage = get_field("artikel_billede");
+    $articleTitle = get_field('artikel_titel');
+    $articleDescription = get_field('artikel_kort_beskrivelse');
+    $articleAuthor = get_field('artikel_forfatter');
+    $articleDate = get_field('artikel_dato');
+    $articleCategory = get_field('artikel_type');
+
+    if ($articleCategory) {
+        if (is_object($articleCategory)) {
+        $categoryLabel = $articleCategory->name;
+      }
+    }
+?>
+
+    <a href="<?php the_permalink(); ?>">
       <div class="card">
         <div class="image-container">
-          <img src="../img/sagi.jpg" alt="" />
-          <div class="label">Komplementær behandling</div>
+            <img src="<?php echo esc_url($articleImage["url"]); ?>" alt="<?php echo esc_attr($articleImage["alt"]); ?>">
+            <div class="label"><?php echo esc_html($categoryLabel); ?></div>
         </div>
-        <h2>Nammam appelsin</h2>
-        <p class="date">14. januar 2024</p>
-        <p class="body">æblemand kom inden i æblemand kom inden i giv mig dine børn inden i mig</p>
+        <h4><?php echo esc_html($articleTitle); ?></h4>
+        <p class="body"><?php echo esc_html($articleDescription); ?></p>
+        <small class="smallArticleTop">Skrevet af <?php echo esc_html($articleAuthor); ?></small>
+        <small><?php echo esc_html($articleDate); ?></small>
       </div>
     </a>
-    <a href="#">
-      <div class="card">
-        <div class="image-container">
-          <img src="../img/sagi.jpg" alt="" />
-          <div class="label">Komplementær behandling</div>
-        </div>
-        <h2>Nammam appelsin</h2>
-        <p class="date">14. januar 2024</p>
-        <p class="body">æblemand kom inden i æblemand kom inden i giv mig dine børn inden i mig</p>
-      </div>
-    </a>    <a href="#">
-      <div class="card">
-        <div class="image-container">
-          <img src="../img/sagi.jpg" alt="" />
-          <div class="label">Komplementær behandling</div>
-        </div>
-        <h2>Nammam appelsin</h2>
-        <p class="date">14. januar 2024</p>
-        <p class="body">æblemand kom inden i æblemand kom inden i giv mig dine børn inden i mig</p>
-      </div>
-    </a>    <a href="#">
-      <div class="card">
-        <div class="image-container">
-          <img src="../img/sagi.jpg" alt="" />
-          <div class="label">Komplementær behandling</div>
-        </div>
-        <h2>Nammam appelsin</h2>
-        <p class="date">14. januar 2024</p>
-        <p class="body">æblemand kom inden i æblemand kom inden i giv mig dine børn inden i mig</p>
-      </div>
-    </a>
-</div>  
-    <a href="#" class="custom-button">Se mere</a>
+
+<?php
+  endwhile;
+endif;
+wp_reset_postdata();
+?>
+</div>
+<a href="<?php echo site_url('/articlearchive/'); ?>" class="section-button">Se mere →</a>
+
 </section>
 
 
+<section class="newsLetterSection">
+  
+  <div class="newsLetterContainer">
 
+    <div class="section-breaker">
+      <hr class="line">
+      <h3>Tilmeld vores nyhedsbrev</h3>
+      <hr class="line">
+    </div>
 
+    <div class="newsLetterContainerText">
+      <p>Få de seneste nyheder, eksklusive tilbud og inspiration direkte i din indbakke - like og følg vores nyhedsbrev i dag!</p>
+    </div>
+
+<div class="newsletterSignup">
+  <form id="customNewsletterForm" method="post">
+    <div class="newsletterInputWrapper">
+      <i class="fa-regular fa-envelope"></i>
+      <input
+        type="email"
+        name="ne"
+        class="newsletterInput"
+        placeholder="Indtast din e-mail"
+        required
+      >
+    </div>
+    <input type="hidden" name="nr" value="widget">
+    <input type="hidden" name="nlang" value="">
+    <input type="hidden" name="ns" value="">
+    <input type="hidden" name="action" value="subscribe">
+    <input type="hidden" name="nl[]" value="1"> <!-- list ID -->
+    <button type="submit" class="newsletterButton">Tilmeld</button>
+  </form>
+  <div id="newsletterMessage" class="mt-2"></div>
+</div>
+  </div>
+</section>
 
 
 <div class="support">
@@ -322,7 +343,7 @@
 
      <div class="section-breaker">
       <hr class="line">
-      <h2 class="!text-4xl">Støt Tidslerne</h2>
+      <h3>Støt Tidslerne</h3>
       <hr class="line">
     </div>
 
@@ -334,7 +355,7 @@
       Det koster 100 kr. det første år – og gør en stor forskel.
     </p>
 
-      <a href="#" class="custom-button">Læs mere →</a>
+      <a href="#" class="support-button">Læs mere →</a>
 
   </div>
 </div>

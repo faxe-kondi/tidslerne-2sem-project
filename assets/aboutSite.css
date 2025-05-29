@@ -1,77 +1,78 @@
 .SiteHeaderAbout {
     position: relative;
-    z-index: 10;        
+    z-index: 2;        
     background-color: var(--color-text); 
     padding: 3rem;
     width: var(--width-12col);
-    height: 710px;
+    height: auto;
     align-items: center;
     margin: auto;
     top: -100px;
   }
 
   .SiteHeaderAboutBox{
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     height: auto;
   }
 
   .SiteHeaderAboutBox img{
     position: relative;
-    top: -55px;
-    width: 100%;
-    height: 100%;
     z-index: -1;
     justify-content: center;
     object-fit: cover;
   }
 
   .SiteHeaderAboutBoxText {
-    width: 48%;
+    grid-column: span 5;
+  }
+
+  .SiteHeaderAboutBoxText h3 {
+      font-size: 36px;
+  line-height: 24px;      
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  color: #333;
+  }
+
+  .SiteHeaderAboutBoxText p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 24px;      
+  letter-spacing: 1px;
+  color: #444;
   }
 
   .SiteHeaderAboutBoxImage {
-    width: 48%;
-    height: auto;
+    grid-column: 8 / span 5;
+  }
+    .SiteHeaderAboutBoxImage img{
+    max-height: auto;
   }
 
-.ImgInfoBoxs {
-  display: grid;
-  position: relative;
-  top: -50px;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  width: 100%;
-  height: auto;
-  padding: 1rem 0 1rem 0; 
-}
-
-.InfoBox {
-  background-color: #d3a7e3;
-  color: white;
-  font-weight: bold;
-  padding: 0.8rem;
-  border-radius: 8px;
-  width: 100%;
-  min-width: 100px;
-  text-align: left;
-  font-size: 1rem;
-}
-
-.InfoBox span {
-  display: block;
-  font-weight: normal;
-  font-size: 0.9rem;
-  margin-top: 4px;
-  color: #f3f3f3;
-}
 
 .SiteBodyTwoBoxs{
-    margin: 600px auto 0 auto;
+    margin: 0 auto 0 auto;
     display: flex;
     justify-content: space-between;
     width: var(--width-12col);
     min-height: 400px;
+}
+
+.SiteBodyTwoBoxs h4{
+    font-size: 30.6px;
+  margin: 0 0 1.5rem 0;
+  line-height: 20.4px;   
+  letter-spacing: 1px;
+  color: #333;
+}
+
+.SiteBodyTwoBoxs p{
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 24px;      
+  letter-spacing: 1px;
+    color: #444;
 }
 
 .SiteBodyTwoLeft {
@@ -96,18 +97,148 @@
     width: var(--width-12col);
     height: 400px;
     background-color: var(--color-text);
-    margin: 100px auto 0 auto;
+    margin: 100px auto 110px auto;
     display: flex;
     justify-content: center;
+    padding: 3rem;
 }
 
-.SiteBodyMiddleBox{
-    padding: 3rem;
+.SiteBodyMiddleBox h4{
+    font-size: 30.6px;
+  margin: 0 0 1.5rem 0;
+  line-height: 20.4px;   
+  letter-spacing: 1px;
+  color: #333;
+}
+
+.SiteBodyMiddleBox p{
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 24px;      
+  letter-spacing: 1px;
+    color: #444;
 }
 
 .SiteBodyMiddleBoxImg{
     height: 100%;
     min-width: 400px;
+    border-radius: 10px;
+}
+
+.SiteBodyMiddleBoxImg img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+      border-radius: 10px;
+}
+
+.SiteBodyMiddleBoxText{
+    padding-left: 3rem;
+}
+
+@media (width < 1300px) {
+  .SiteHeaderAbout {
+    padding: 2.55rem;
+    width: var(--width-box-medium);
+    top: -100px;
+  }
+
+    .SiteHeaderAboutBox{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    height: auto;
+  }
+
+  .SiteHeaderAboutBox img{
+    position: relative;
+    z-index: -1;
+    justify-content: center;
+    object-fit: cover;
+  }
+
+  .SiteHeaderAboutBoxText {
+    grid-column: span 5;
+  }
+
+  .SiteHeaderAboutBoxText h3 {
+  font-size: 30.6px;
+  margin: 0 0 1.5rem 0;
+  line-height: 20.4px;       
+  }
+
+  .SiteHeaderAboutBoxText p {
+  font-size: 0.85rem;
+  margin-bottom: 17px;
+  line-height: 20.4px;  
+  }
+
+  .SiteHeaderAboutBoxImage {
+    grid-column: 8 / span 5;
+  }
+    .SiteHeaderAboutBoxImage img{
+    max-height: auto;
+  }
+
+
+.SiteBodyTwoBoxs{
+    margin: 0 auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: var(--width-box-medium);
+    min-height: 340px;
+}
+
+.SiteBodyTwoBoxs h4{
+    font-size: 26px; 
+}
+
+.SiteBodyTwoBoxs p{
+      font-size: 0.85rem;
+  margin-bottom: 17px;
+  line-height: 20.4px;  
+}
+
+.SiteBodyTwoLeft {
+    width: 48%;
+    min-height: 100%;
+    padding: 2.55rem;
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+}
+
+.SiteBodyTwoRight {
+    width: 48%;
+    min-height: 100%;
+     padding: 2.55rem;
+    display: flex;
+    background-color:var(--color-text);
+    border-radius: 20px;
+}
+ 
+.SiteBodyMiddleBox{
+    width: var(--width-box-medium);
+    height: 340px;
+    background-color: var(--color-text);
+    margin: 100px auto 110px auto;
+    display: flex;
+    justify-content: center;
+    padding: 2.55rem;
+}
+
+.SiteBodyMiddleBox h4{
+    font-size: 26px;
+}
+
+.SiteBodyMiddleBox p{
+      font-size: 0.85rem;
+  margin-bottom: 17px;
+  line-height: 20.4px; 
+}
+
+.SiteBodyMiddleBoxImg{
+    height: 100%;
+    min-width: 340px;
 }
 
 .SiteBodyMiddleBoxImg img{
@@ -117,5 +248,353 @@
 }
 
 .SiteBodyMiddleBoxText{
-    padding-left: 3rem;
+    padding-left: 2.55rem;
+}
+}
+
+@media (width < 1000px) {
+  .SiteHeaderAbout {
+    padding: 2.1675rem 2.55rem; 
+    width: var(--width-box-small);
+    top: -100px;
+  }
+
+  .SiteHeaderAboutBoxText {
+    grid-column: span 5;
+  }
+
+  .SiteHeaderAboutBoxText h3 {
+  font-size: 26px;
+  margin: 0 0 0.75rem 0;
+  line-height: 20.4px;          
+  }
+
+  .SiteHeaderAboutBoxText p {
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+  }
+
+  .SiteHeaderAboutBoxImage {
+    grid-column: 8 / span 5;
+    margin: auto 0;
+  }
+    .SiteHeaderAboutBoxImage img{
+    max-height: auto;
+  }
+
+
+.SiteBodyTwoBoxs{
+    margin: 0 auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: var(--width-box-small);
+    min-height: 289px;
+}
+
+.SiteBodyTwoBoxs h4{
+    font-size: 22.1px; 
+}
+
+.SiteBodyTwoBoxs p{
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+}
+
+.SiteBodyTwoLeft {
+    width: 48%;
+    min-height: 100%;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+}
+
+.SiteBodyTwoRight {
+    width: 48%;
+    min-height: 100%;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    background-color:var(--color-text);
+    border-radius: 20px;
+}
+ 
+.SiteBodyMiddleBox{
+    width: var(--width-box-small);
+    height: 340px;
+    background-color: var(--color-text);
+    margin: 100px auto 110px auto;
+    display: flex;
+    justify-content: center;
+    padding: 2.1675rem 2.55rem; 
+}
+
+.SiteBodyMiddleBox h4{
+  font-size: 22.1px;
+}
+
+.SiteBodyMiddleBox p{
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+}
+
+.SiteBodyMiddleBoxImg{
+    height: 100%;
+    min-width: 289px;
+    margin: auto 0;
+}
+
+.SiteBodyMiddleBoxImg img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.SiteBodyMiddleBoxText{
+    padding-left: 2.1675rem;
+    margin: auto 0;
+}
+}
+
+@media (width < 1000px) {
+  .SiteHeaderAbout {
+    padding: 2.1675rem 2.55rem; 
+    min-width: var(--width-12col-mobile);
+    width: 80%;
+    top: -100px;
+  }
+
+  .SiteHeaderAboutBox{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .SiteHeaderAboutBoxText h3 {
+  font-size: 26px;
+  margin: 0 0 0.75rem 0;
+  line-height: 20.4px;          
+  }
+
+  .SiteHeaderAboutBoxText p {
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+  }
+
+  .SiteHeaderAboutBoxImage {
+    margin: 2rem 0 0 0;
+  }
+    .SiteHeaderAboutBoxImage img{
+    max-height: auto;
+  }
+
+
+.SiteBodyTwoBoxs{
+    margin: 0 auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    min-width: var(--width-12col-mobile);
+    width: 80%;
+    min-height: 289px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.SiteBodyTwoBoxs h4{
+    font-size: 22.1px; 
+}
+
+.SiteBodyTwoBoxs p{
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+}
+
+.SiteBodyTwoLeft {
+    width: 48%;
+    min-height: 100%;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+    margin: 0 auto 3rem auto;
+}
+
+.SiteBodyTwoRight {
+    width: 48%;
+    min-height: 100%;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+    margin: 0 auto 3rem auto;
+}
+ 
+.SiteBodyMiddleBox{
+    min-width: var(--width-12col-mobile);
+    width: 80%;
+    height: auto;
+    background-color: var(--color-text);
+    margin: 100px auto 110px auto;
+    display: flex;
+    justify-content: center;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    flex-direction: column;
+}
+
+.SiteBodyMiddleBox h4{
+  font-size: 22.1px;
+}
+
+.SiteBodyMiddleBox p{
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+}
+
+.SiteBodyMiddleBoxImg{
+    aspect-ratio: 100 / 68;
+    width: 100%;
+    margin: 2rem 0 0 0;
+    order: 2;
+}
+
+.SiteBodyMiddleBoxImg img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.SiteBodyMiddleBoxText{
+    padding-left: 0;
+    margin: auto 0;
+}
+}
+
+@media (width < 1000px) {
+  .SiteHeaderAbout {
+    padding: 2.1675rem 2.55rem; 
+    min-width: var(--width-12col-mobile);
+    width: 80%;
+    top: -100px;
+  }
+
+  .SiteHeaderAboutBox{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .SiteHeaderAboutBoxText h3 {
+  font-size: 26px;
+  margin: 0 0 0.75rem 0;
+  line-height: 20.4px;          
+  }
+
+  .SiteHeaderAboutBoxText p {
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+  }
+
+  .SiteHeaderAboutBoxImage {
+    margin: 2rem 0 0 0;
+  }
+    .SiteHeaderAboutBoxImage img{
+    max-height: auto;
+  }
+
+
+.SiteBodyTwoBoxs{
+    margin: 0 auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    min-width: var(--width-12col-mobile);
+    width: 80%;
+    min-height: 289px;
+    display: flex;
+    flex-direction: column;
+}
+
+.SiteBodyTwoBoxs h4{
+    font-size: 22.1px; 
+}
+
+.SiteBodyTwoBoxs p{
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+}
+
+.SiteBodyTwoLeft {
+    width: 90%;
+    min-height: 100%;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+    margin: 0 auto 3rem auto;
+}
+
+.SiteBodyTwoRight {
+    width: 90%;
+    min-height: 100%;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    background-color: var(--color-text);
+    border-radius: 20px;
+    margin: 0 auto 3rem auto;
+}
+ 
+.SiteBodyMiddleBox{
+    min-width: var(--width-12col-mobile);
+    width: 80%;
+    height: auto;
+    background-color: var(--color-text);
+    margin: 50px auto 110px auto;
+    display: flex;
+    justify-content: center;
+    padding: 2.1675rem 2.55rem; 
+    display: flex;
+    flex-direction: column;
+}
+
+.SiteBodyMiddleBox h4{
+  font-size: 22.1px;
+}
+
+.SiteBodyMiddleBox p{
+  font-size: 0.72rem;
+  margin-bottom: 14.45px;
+  line-height: 20.4px;     
+  letter-spacing: 0.6px; 
+}
+
+.SiteBodyMiddleBoxImg{
+    aspect-ratio: 100 / 68;
+    width: 100%;
+    margin: 2rem 0 0 0;
+    order: 2;
+}
+
+.SiteBodyMiddleBoxImg img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.SiteBodyMiddleBoxText{
+    padding-left: 0;
+    margin: auto 0;
+}
 }
